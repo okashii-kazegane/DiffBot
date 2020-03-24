@@ -123,19 +123,20 @@ async def on_message_edit(before, after):
     diffconfigs = await get_diffconfig(before.guild)
     log_channel = diffbot.get_channel(int(diffconfigs['log_channel_id']))
     if log_channel is not None:
-        if before.channel.id == after.channel.id:
+        if before.channel.id == log_channel.id:
             return
-        titleStr = "{} has edited a message in the {} channel ".format(before.author,
-                                                                       before.channel)
-        nameStr = before.content
-        valueStr = after.content
-        try:
-            await embedMessage(log_channel, titleStr, nameStr, valueStr)
-        except:
-            await log_channel.send("__**{} has edited a message in the {} channel**__".format(before.author,
-                                                                                              before.channel))
-            await log_channel.send("*{}*".format(before.content))
-            await log_channel.send("**{}**".format(after.content))
+        if before.content != after.content
+            titleStr = "{} has edited a message in the {} channel ".format(before.author,
+                                                                           before.channel)
+            nameStr = before.content
+            valueStr = after.content
+            try:
+                await embedMessage(log_channel, titleStr, nameStr, valueStr)
+            except:
+                await log_channel.send("__**{} has edited a message in the {} channel**__".format(before.author,
+                                                                                                  before.channel))
+                await log_channel.send("*{}*".format(before.content))
+                await log_channel.send("**{}**".format(after.content))
 
 @diffbot.event
 async def on_raw_message_edit(payload):
@@ -150,14 +151,14 @@ async def on_raw_message_edit(payload):
             titleStr = "{} has edited a message in the {} channel ".format(payload.cached_message.author,
                                                                            payload.cached_message.channel)
             nameStr = payload.cached_message.content
-            valueStr = str(payload.data)
+            valueStr = ""#str(payload.data)
             try:
                 await embedMessage(log_channel, titleStr, nameStr, valueStr)
             except:
                 await log_channel.send("__**{} has edited a message in the {} channel**__".format(payload.cached_message.author,
                                                                                            payload.cached_message.channel))
                 await log_channel.send("**{}**".format(payload.cached_message.content))
-                await log_channel.send("*{}*".format(str(payload.data)))
+                #await log_channel.send("*{}*".format(str(payload.data)))
         else:
             await log_channel.send("**A message was edited in the channel with id {} <#{}>**".format(payload.channel_id, payload.channel_id))      
 
@@ -172,7 +173,7 @@ async def on_raw_message_delete(payload):
             titleStr = "{} has deleted a message in the {} channel ".format(payload.cached_message.author,
                                                                            payload.cached_message.channel)
             nameStr = payload.cached_message.content
-            valueStr = str(payload)	
+            valueStr = ""#str(payload)	
             try:
                 await embedMessage(log_channel, titleStr, nameStr, valueStr)
             except:
