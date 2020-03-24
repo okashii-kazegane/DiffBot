@@ -150,8 +150,8 @@ async def on_raw_message_edit(payload):
         if payload.cached_message is not None and payload.cached_message.content and payload.cached_message.content.strip():
             titleStr = "{} has edited a message in the {} channel ".format(payload.cached_message.author,
                                                                            payload.cached_message.channel)
-            nameStr = payload.cached_message.content
-            valueStr = ""#str(payload.data)
+            valueStr = payload.cached_message.content
+            nameStr = "Cached message:"#str(payload.data)
             try:
                 await embedMessage(log_channel, titleStr, nameStr, valueStr)
             except:
@@ -160,7 +160,7 @@ async def on_raw_message_edit(payload):
                 await log_channel.send("**{}**".format(payload.cached_message.content))
                 #await log_channel.send("*{}*".format(str(payload.data)))
         else:
-            await log_channel.send("**A message was edited in the channel with id {} <#{}>**".format(payload.channel_id, payload.channel_id))      
+            await log_channel.send("**An uncached message was edited in the channel <#{}>**".format(payload.channel_id, payload.channel_id))      
 
 @diffbot.event
 async def on_raw_message_delete(payload):
@@ -172,8 +172,8 @@ async def on_raw_message_delete(payload):
         if payload.cached_message is not None and payload.cached_message.content and payload.cached_message.content.strip():
             titleStr = "{} has deleted a message in the {} channel ".format(payload.cached_message.author,
                                                                            payload.cached_message.channel)
-            nameStr = payload.cached_message.content
-            valueStr = ""#str(payload)	
+            valueStr = payload.cached_message.content
+            nameStr = "Cached message:"#str(payload)	
             try:
                 await embedMessage(log_channel, titleStr, nameStr, valueStr)
             except:
@@ -181,7 +181,7 @@ async def on_raw_message_delete(payload):
                                                                                                    payload.cached_message.channel))
                 await log_channel.send("**{}**".format(payload.cached_message.content))
         else:
-            await log_channel.send("**A message was deleted in the channel with id {} <#{}>**".format(payload.channel_id, payload.channel_id))      
+            await log_channel.send("**An uncached message was deleted in the channel <#{}>**".format(payload.channel_id, payload.channel_id))      
 
 @diffbot.command()
 async def set_log_channel(ctx, channel_mention):
