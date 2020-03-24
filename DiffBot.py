@@ -125,7 +125,7 @@ async def on_message_edit(before, after):
     if log_channel is not None:
         if before.channel.id == log_channel.id:
             return
-        if before.content != after.content
+        if before.content != after.content:
             titleStr = "{} has edited a message in the {} channel ".format(before.author,
                                                                            before.channel)
             nameStr = before.content
