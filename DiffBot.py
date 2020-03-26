@@ -148,17 +148,18 @@ async def on_raw_message_edit(payload):
         if payload.channel_id == log_channel.id:
             return
         if payload.cached_message is not None and payload.cached_message.content and payload.cached_message.content.strip():
-            titleStr = "{} has edited a message in the {} channel ".format(payload.cached_message.author,
-                                                                           payload.cached_message.channel)
-            valueStr = payload.cached_message.content
-            nameStr = "Cached message:"#str(payload.data)
-            try:
-                await embedMessage(log_channel, titleStr, nameStr, valueStr)
-            except:
-                await log_channel.send("__**{} has edited a message in the {} channel**__".format(payload.cached_message.author,
-                                                                                           payload.cached_message.channel))
-                await log_channel.send("**{}**".format(payload.cached_message.content))
-                #await log_channel.send("*{}*".format(str(payload.data)))
+            #titleStr = "{} has edited a message in the {} channel ".format(payload.cached_message.author,
+            #                                                               payload.cached_message.channel)
+            #valueStr = payload.cached_message.content
+            #nameStr = "Cached message:"#str(payload.data)
+            #try:
+            #    await embedMessage(log_channel, titleStr, nameStr, valueStr)
+            #except:
+            #    await log_channel.send("__**{} has edited a message in the {} channel**__".format(payload.cached_message.author,
+            #                                                                               payload.cached_message.channel))
+            #    await log_channel.send("**{}**".format(payload.cached_message.content))
+            #    #await log_channel.send("*{}*".format(str(payload.data)))
+            return
         else:
             await log_channel.send("**An uncached message was edited in the channel <#{}>**".format(payload.channel_id, payload.channel_id))      
 
